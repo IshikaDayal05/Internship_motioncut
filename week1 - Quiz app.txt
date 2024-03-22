@@ -1,0 +1,91 @@
+package internship;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class Question {
+    private String questionText;
+    private String[] options;
+    private int correctAnswerIndex;
+
+    public Question(String questionText, String[] options, int correctAnswerIndex) {
+        this.questionText = questionText;
+        this.options = options;
+        this.correctAnswerIndex = correctAnswerIndex;
+    }
+
+    public String getQuestionText() {
+        return questionText;
+    }
+
+    public String[] getOptions() {
+        return options;
+    }
+
+    public int getCorrectAnswerIndex() {
+        return correctAnswerIndex;
+    }
+}
+
+class Quiz {
+    private ArrayList<Question> questions;
+
+    public Quiz() {
+        questions = new ArrayList<>();
+    }
+
+    public void addQuestion(Question question) {
+        questions.add(question);
+    }
+
+    public Question getQuestion(int index) {
+        return questions.get(index);
+    }
+
+    public int getQuestionCount() {
+        return questions.size();
+    }
+}
+
+public class QuizApp {
+    public static void main(String[] args) {
+        Quiz quiz = new Quiz();
+        // Add questions to the quiz
+        quiz.addQuestion(new Question("What is the capital of France?",
+                new String[]{"London", "Paris", "Berlin", "Rome"}, 1));
+        quiz.addQuestion(new Question("What is 2 + 2?",
+                new String[]{"3", "4", "5", "6"}, 1));
+        quiz.addQuestion(new Question("Which planet is known as the Red Planet?",
+                new String[]{"Mars", "Jupiter", "Venus", "Mercury"}, 0));
+        quiz.addQuestion(new Question("What is the chemical symbol for water?",
+                new String[]{"H2O", "CO2", "NaCl", "O2"}, 0));
+        
+        Scanner scanner = new Scanner(System.in);
+        int score = 0;
+
+        System.out.println("Welcome to the Quiz!");
+
+        for (int i = 0; i < quiz.getQuestionCount(); i++) {
+            Question currentQuestion = quiz.getQuestion(i);
+            System.out.println("Question " + (i + 1) + ": " + currentQuestion.getQuestionText());
+            String[] options = currentQuestion.getOptions();
+            for (int j = 0; j < options.length; j++) {
+                System.out.println((j + 1) + ". " + options[j]);
+            }
+            System.out.print("Your answer: ");
+            int userAnswer = scanner.nextInt();
+            if (userAnswer == currentQuestion.getCorrectAnswerIndex() + 1) {
+                System.out.println("Correct!");
+                score++;
+            } else {
+                System.out.println("Incorrect. The correct answer is: " + options[currentQuestion.getCorrectAnswerIndex()]);
+            }
+        }
+
+        System.out.println("Quiz complete!");
+        System.out.println("Your score: " + score + "/" + quiz.getQuestionCount());
+
+        scanner.close();
+    }
+}
+
