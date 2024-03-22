@@ -50,7 +50,7 @@ class Quiz {
 public class QuizApp {
     public static void main(String[] args) {
         Quiz quiz = new Quiz();
-        // Add questions to the quiz
+       
         quiz.addQuestion(new Question("What is the capital of France?",
                 new String[]{"London", "Paris", "Berlin", "Rome"}, 1));
         quiz.addQuestion(new Question("What is 2 + 2?",
