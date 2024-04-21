@@ -1,0 +1,88 @@
+package week4;
+import java.util.Scanner;
+
+public class TextAdventureGame {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Welcome to the Text Adventure Game!");
+        System.out.println("You find yourself in a mystical forest...");
+
+        // Game start
+        exploreForest(scanner);
+    }
+
+    public static void exploreForest(Scanner scanner) {
+        System.out.println("\nWhat would you like to do?");
+        System.out.println("1. Follow the path deeper into the forest.");
+        System.out.println("2. Climb a tree to get a better view.");
+
+        int choice = getUserChoice(scanner, 2);
+        switch (choice) {
+            case 1:
+                System.out.println("\nYou follow the path and encounter a friendly elf.");
+                interactWithElf(scanner);
+                break;
+            case 2:
+                System.out.println("\nFrom the tree, you spot a hidden cave nearby.");
+                exploreCave(scanner);
+                break;
+        }
+    }
+
+    public static void interactWithElf(Scanner scanner) {
+        System.out.println("\nThe elf offers you a magical potion. What do you do?");
+        System.out.println("1. Accept the potion.");
+        System.out.println("2. Decline the potion.");
+
+        int choice = getUserChoice(scanner, 2);
+        switch (choice) {
+            case 1:
+                System.out.println("\nThe potion grants you temporary strength. You continue your journey.");
+                exploreForest(scanner);
+                break;
+            case 2:
+                System.out.println("\nThe elf nods and wishes you luck. You continue exploring.");
+                exploreForest(scanner);
+                break;
+        }
+    }
+
+    public static void exploreCave(Scanner scanner) {
+        System.out.println("\nYou enter the dark cave and hear growling sounds.");
+        System.out.println("What will you do?");
+        System.out.println("1. Light a torch and explore further.");
+        System.out.println("2. Retreat back to the forest.");
+
+        int choice = getUserChoice(scanner, 2);
+        switch (choice) {
+            case 1:
+                System.out.println("\nYou find a treasure chest deep inside the cave!");
+                System.out.println("Congratulations! You win the game.");
+                break;
+            case 2:
+                System.out.println("\nYou cautiously retreat and return to the forest.");
+                exploreForest(scanner);
+                break;
+        }
+    }
+
+    public static int getUserChoice(Scanner scanner, int maxChoice) {
+        int choice = 0;
+        boolean isValidInput = false;
+        while (!isValidInput) {
+            System.out.print("Enter your choice: ");
+            if (scanner.hasNextInt()) {
+                choice = scanner.nextInt();
+                if (choice >= 1 && choice <= maxChoice) {
+                    isValidInput = true;
+                } else {
+                    System.out.println("Invalid input! Please enter a number between 1 and " + maxChoice + ".");
+                }
+            } else {
+                System.out.println("Invalid input! Please enter a valid number.");
+                scanner.next(); // clear the invalid input
+            }
+        }
+        return choice;
+    }
+}
